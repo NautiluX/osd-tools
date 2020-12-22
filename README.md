@@ -8,7 +8,7 @@
 
 ```bash
 git clone https://github.com/NautiluX/osd-tools
-echo "export PATH=`pwd`/osd-tools/bin:\$PATH"
+echo "export PATH=`pwd`/osd-tools/bin:\$PATH" >> ~/.bashrc
 ```
 
 ## Usage
