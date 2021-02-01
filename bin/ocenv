@@ -18,11 +18,26 @@ if [ ! -f "$ALIAS/.envrc" ]; then
   cat << EOF > "$ALIAS/.envrc"
 export KUBECONFIG="\$(pwd)/kubeconfig.json"
 PATH_add $BINPATH
+
 EOF
-  echo 'ocm tunnel $CLUSTERID' > "$BINPATH/oct"
-  chmod +x "$BINPATH/oct"
-  echo 'ocm cluster login --token $CLUSTERID' > "$BINPATH/ocl"
-  chmod +x "$BINPATH/ocl"
+
+echo 'ocm tunnel $CLUSTERID' > "$BINPATH/oct"
+chmod +x "$BINPATH/oct"
+echo 'ocm cluster login --token $CLUSTERID' > "$BINPATH/ocl"
+chmod +x "$BINPATH/ocl"
+
+cat << EOF > "$BINPATH/bp"
+#!/bin/bash
+
+set -euo pipefail
+
+sudo ls
+ocm backplane tunnel \$CLUSTERID &
+sleep 5s
+ocm backplane login \$CLUSTERID
+EOF
+
+chmod +x "$BINPATH/ocl"
 fi
 cd "$ALIAS"
 if [[ "$CLUSTERID" != "" ]]; then
