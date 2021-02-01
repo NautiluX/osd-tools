@@ -20,13 +20,16 @@ export KUBECONFIG="\$(pwd)/kubeconfig.json"
 PATH_add $BINPATH
 
 EOF
+fi
 
 echo 'ocm tunnel $CLUSTERID' > "$BINPATH/oct"
 chmod +x "$BINPATH/oct"
 echo 'ocm cluster login --token $CLUSTERID' > "$BINPATH/ocl"
 chmod +x "$BINPATH/ocl"
+echo 'ocm describe cluster $CLUSTERID' > "$BINPATH/ocd"
+chmod +x "$BINPATH/ocd"
 
-cat << EOF > "$BINPATH/bp"
+cat << EOF > "$BINPATH/ocb"
 #!/bin/bash
 
 set -euo pipefail
@@ -36,9 +39,9 @@ ocm backplane tunnel \$CLUSTERID &
 sleep 5s
 ocm backplane login \$CLUSTERID
 EOF
+chmod +x "$BINPATH/ocb"
 
 chmod +x "$BINPATH/ocl"
-fi
 cd "$ALIAS"
 if [[ "$CLUSTERID" != "" ]]; then
   echo "export CLUSTERID=\"$CLUSTERID\"" >> ".envrc"
