@@ -17,6 +17,7 @@ cd "$OSDENVPATH"
 if [ ! -f "$ALIAS/.envrc" ]; then
   cat << EOF > "$ALIAS/.envrc"
 export KUBECONFIG="\$(pwd)/kubeconfig.json"
+export OCM_CONFIG="\$(pwd)/ocm.json"
 PATH_add $BINPATH
 
 EOF
